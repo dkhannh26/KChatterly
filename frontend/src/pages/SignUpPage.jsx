@@ -43,7 +43,7 @@ const SignUpPage = () => {
           <div className="mb-4 flex items-center justify-start gap-2">
             <ShipWheelIcon className="w-8 h-8 text-primary" />
             <span className="text-2xl font-bold font-fomo bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary tracking-wider">
-              Chatterly
+              K.Chatterly
             </span>
           </div>
           {/*Error message */}
@@ -58,7 +58,7 @@ const SignUpPage = () => {
                 <div>
                   <h2 className="text-3xl font-semibold mb-2">Sign Up</h2>
                   <p className="text-sm text-gray-500">
-                    Join Chatterly today! Create your account to start
+                    Join K.Chatterly today! Create your account to start
                   </p>
                 </div>
                 <div className="space-y-3">
@@ -181,7 +181,7 @@ const SignUpPage = () => {
             <div className="text-center space-y-3 mt-6">
               <h2 className="text-2xl font-semibold">Connect with Friends</h2>
               <p className="text-sm text-gray-400">
-                Join Chatterly and start connecting with friends and family
+                Join K.Chatterly and start connecting with friends and family
                 today!
               </p>
             </div>

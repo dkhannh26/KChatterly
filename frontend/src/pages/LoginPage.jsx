@@ -1,6 +1,6 @@
 import React from "react";
 import useLogin from "../hooks/useLogin";
-import { ShipWheelIcon } from "lucide-react";
+import { MessageSquareText, ShipWheelIcon } from "lucide-react";
 import { Link } from "react-router";
 const LoginPage = () => {
   const [loginData, setLoginData] = React.useState({
@@ -26,9 +26,9 @@ const LoginPage = () => {
         <div className="w-full lg:w-1/2 p-4 sm:p-8 flex flex-col">
           {/* LOGO */}
           <div className="mb-4 flex items-center justify-start gap-2">
-            <ShipWheelIcon className="size-9 text-primary" />
+            <MessageSquareText className="size-9 text-primary" />
             <span className="text-3xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary  tracking-wider">
-              Chatterly
+              K.Chatterly
             </span>
           </div>
 
