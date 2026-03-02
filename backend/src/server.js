@@ -19,7 +19,7 @@ app.use(
   cors({
     origin: "http://localhost:5173",
     credentials: true,
-  })
+  }),
 );
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -38,5 +38,5 @@ if (process.env.NODE_ENV === "production") {
 }
 app.listen(PORT, () => {
   console.log(`Example app listening on PORT ${PORT}`);
-  connectDB(process.env.MONGO_URI);
+  connectDB();
 });

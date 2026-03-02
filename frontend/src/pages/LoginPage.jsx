@@ -11,7 +11,6 @@ const LoginPage = () => {
   const { loginMutate, isPending, error } = useLogin();
 
   const handleLogin = (e) => {
-    console.log("Login attempt with data:", loginData);
     e.preventDefault();
     loginMutate(loginData);
   };

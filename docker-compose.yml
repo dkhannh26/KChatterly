@@ -1,0 +1,75 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: kchatterly-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongodb
+      MONGO_INITDB_ROOT_PASSWORD: password123
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - kchatterly-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: kchatterly-backend
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      MONGODB_URI: mongodb://mongodb:password123@mongodb:27017/kchatterly?authSource=admin
+      JWT_SECRET: your_jwt_secret_key_change_this
+      STREAM_API_KEY: your_stream_api_key
+      STREAM_API_SECRET: your_stream_api_secret
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - kchatterly-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: kchatterly-frontend
+    # frontend only builds assets; no public port needed when nginx handles routing
+    environment:
+      NODE_ENV: production
+      VITE_API_URL: "http://backend:3000/api"
+    depends_on:
+      - backend
+    networks:
+      - kchatterly-network
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: kchatterly-nginx
+    ports:
+      - "5173:80" # host port 5173 -> container nginx 80
+    volumes:
+      - ./frontend/dist:/usr/share/nginx/html:ro
+      - ./frontend/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - backend
+    networks:
+      - kchatterly-network
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
+
+networks:
+  kchatterly-network:
+    driver: bridge
