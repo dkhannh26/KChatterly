@@ -97,7 +97,7 @@ export const login = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true, // prevent client-side JS from accessing the cookie
-      secure: process.env.NODE_ENV === "production", // set to true in production
+      secure: false, // process.env.NODE_ENV === "production", // set to true in production
       sameSite: "Strict", // adjust based on your requirements
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
@@ -147,7 +147,7 @@ export const onboard = async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { ...req.body, isOnboarded: true },
-      { new: true }
+      { new: true },
     ).select("-password");
 
     if (!updatedUser) {
